@@ -23,7 +23,7 @@ CLeftView::~CLeftView()
 
 BEGIN_MESSAGE_MAP(CLeftView, CTreeView)
 	ON_WM_CREATE()
-	//ON_NOTIFY_REFLECT(TVN_SELCHANGED, OnSelectionChanged)
+	
 	ON_NOTIFY_REFLECT(TVN_SELCHANGED, &CLeftView::OnTvnSelchanged)
 END_MESSAGE_MAP()
 
@@ -177,17 +177,17 @@ void CLeftView::OnTvnSelchanged(NMHDR *pNMHDR, LRESULT *pResult)
 
 	CDiskStatisticsDoc *pDoc = GetDocument();
 
-    // Get a reference to the tree control
+    // reference to the tree control
     CTreeCtrl &ctlFiles = this->GetTreeCtrl();
 
-    // Find out what item is selected in the tree
+    
     HTREEITEM nodSelected = ctlFiles.GetSelectedItem();
-    // Get the string of the selected node
+    
     CString strSelected = ctlFiles.GetItemText(nodSelected);
 
     HTREEITEM nodParent = nodSelected;
 
-    //Build the full path with wild cards
+    
     do {
             nodParent = ctlFiles.GetParentItem(nodParent);
             if (nodParent!=NULL)
@@ -212,7 +212,6 @@ void CLeftView::GetPath(CString CStrPath)
 
 	HTREEITEM hChild = ctlFolders.GetChildItem(hRoot);
 
-	// Clear the selected node
 	while(hChild){
 		ctlFolders.DeleteItem(hChild);
 		hChild = ctlFolders.GetChildItem(hRoot);
@@ -231,7 +230,6 @@ void CLeftView::GetPath(CString CStrPath)
 			long lFSize = FindFileData.nFileSizeLow;
 			CString strFSize=_T("");
 
-			//Want folders that aren't . and ..
 			if (FindFileData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY
 				&& FindFileData.cFileName != CString (".")
 				&& FindFileData.cFileName != CString (".."))
