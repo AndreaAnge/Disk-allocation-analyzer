@@ -7,6 +7,9 @@
 
 class CLeftView;
 class CFileView;
+class CPieView;
+
+
 
 class CDiskStatisticsDoc : public CDocument
 {
@@ -24,6 +27,7 @@ public:
 public:
 	CLeftView *pLeftView;
     CFileView *pFileView;
+	CPieView* pPieView;
 
 // Overrides
 public:
@@ -54,4 +58,5 @@ protected:
 #endif // SHARED_HANDLERS
 public:
 	virtual BOOL OnNewDocument();
+	
 };

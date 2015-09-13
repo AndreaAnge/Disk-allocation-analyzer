@@ -1,4 +1,5 @@
 #pragma once
+#include "diskspaceinfo.h"
 
 
 // CFileView view
@@ -35,6 +36,13 @@ private:
 	HANDLE m_hStopEvent;
 
 
+public:
+	void Refresh(void);
+	
+	CString GetExtension(CString fileName);
+
+
+	afx_msg void OnLvnColumnclick(NMHDR *pNMHDR, LRESULT *pResult);
 };
 
 

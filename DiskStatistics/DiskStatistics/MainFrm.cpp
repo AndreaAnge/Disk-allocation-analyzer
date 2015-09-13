@@ -6,7 +6,7 @@
 #include "DiskStatistics.h"
 
 #include "MainFrm.h"
-
+#include "PieView.h"
 #include "LeftView.h"
 #include "FileView.h"
 
@@ -321,8 +321,8 @@ BOOL CMainFrame::OnCreateClient(LPCREATESTRUCT lpcs, CCreateContext* pContext)
             CSize (200, 0), pContext) ||
         !m_wndSplitter2.CreateStatic (&m_wndSplitter1, 2, 1, WS_CHILD |
             WS_VISIBLE, m_wndSplitter1.IdFromRowCol (0, 1)) ||
-        !m_wndSplitter2.CreateView (0, 0, RUNTIME_CLASS (CFileView),
-            CSize (0, 300), pContext) ||
+        !m_wndSplitter2.CreateView (0, 0, RUNTIME_CLASS (CPieView),
+            CSize (0, 380), pContext) ||
         !m_wndSplitter2.CreateView (1, 0, RUNTIME_CLASS (CFileView),
             CSize (0, 0), pContext))
         return FALSE;

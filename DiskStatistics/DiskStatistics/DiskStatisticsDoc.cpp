@@ -29,6 +29,7 @@ END_MESSAGE_MAP()
 // CDiskStatisticsDoc construction/destruction
 
 CDiskStatisticsDoc::CDiskStatisticsDoc()
+	: pPieView(NULL)
 {
 	// TODO: add one-time construction code here
 

@@ -1,4 +1,6 @@
 #pragma once
+#include "pieview.h"
+
 
 class CDiskStatisticsDoc;
 // CLeftView view
@@ -34,10 +36,12 @@ private:
 	HANDLE m_hStopEvent;
 public:
 	void GetPath(CString CStrPath);
+	
+	
 };
 
 
 #ifndef _DEBUG  
-inline CFTreeBrowserDoc* CLeftView::GetDocument()
-{ return (CFTreeBrowserDoc*)m_pDocument; }
+inline CDiscStatisticsDoc* CLeftView::GetDocument()
+{ return (CDiscStatisticsDoc*)m_pDocument; }
 #endif

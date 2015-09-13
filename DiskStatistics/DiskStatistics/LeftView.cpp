@@ -6,6 +6,7 @@
 #include "DiskStatisticsDoc.h"
 #include "LeftView.h"
 #include "FileView.h"
+#include "PieView.h"
 
 
 // CLeftView
@@ -140,9 +141,6 @@ void CLeftView::CreateRoots()
         GetTreeCtrl ().Select (hItem, TVGN_CARET);
     }
 
-    //
-    // Initialize the list view.
-    //
     strPath = GetPathFromItem (GetTreeCtrl().GetSelectedItem());
     GetDocument()->UpdateAllViews (this, 0x5A, 
         (CObject*) (LPCTSTR) strPath);
@@ -181,7 +179,7 @@ void CLeftView::OnTvnSelchanged(NMHDR *pNMHDR, LRESULT *pResult)
     CTreeCtrl &ctlFiles = this->GetTreeCtrl();
 
     
-    HTREEITEM nodSelected = ctlFiles.GetSelectedItem();
+    HTREEITEM nodSelected = ctlFiles.GetSelectedItem(); //c: 
     
     CString strSelected = ctlFiles.GetItemText(nodSelected);
 
@@ -193,11 +191,16 @@ void CLeftView::OnTvnSelchanged(NMHDR *pNMHDR, LRESULT *pResult)
             if (nodParent!=NULL)
                 strSelected = ctlFiles.GetItemText(nodParent) + "\\" + strSelected;
     } while (nodParent != NULL);
-    CString strSearchPath = strSelected + ("\\*.*");
+
+    CString strSearchPath = strSelected + ("\\*.*"); //c:\*.*
+	CString strDrive = strSelected + ("\\");
 
     pDoc->pFileView->DisplaySelection(strSearchPath.GetBuffer(1));
+	pDoc->pPieView->DisplayDrive(strSelected.Left(3));
+    GetPath(strSelected); // expands the selected drive
 
-    GetPath(strSelected);
+	
+	
 }
 
 
