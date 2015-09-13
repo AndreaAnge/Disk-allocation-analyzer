@@ -110,6 +110,7 @@
     <ClInclude Include="DiskStatisticsDoc.h" />
     <ClInclude Include="DiskStatisticsView.h" />
     <ClInclude Include="FileView.h" />
+    <ClInclude Include="FolderSize.h" />
     <ClInclude Include="LeftView.h" />
     <ClInclude Include="MainFrm.h" />
     <ClInclude Include="PieView.h" />
@@ -122,6 +123,7 @@
     <ClCompile Include="DiskStatisticsDoc.cpp" />
     <ClCompile Include="DiskStatisticsView.cpp" />
     <ClCompile Include="FileView.cpp" />
+    <ClCompile Include="FolderSize.cpp" />
     <ClCompile Include="LeftView.cpp" />
     <ClCompile Include="MainFrm.cpp" />
     <ClCompile Include="PieView.cpp" />

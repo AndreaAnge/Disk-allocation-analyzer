@@ -12,6 +12,7 @@
 IMPLEMENT_DYNCREATE(CFileView, CListView)
 
 CFileView::CFileView()
+: fileCount(0)
 {
 
 }
@@ -105,7 +106,7 @@ void CFileView::DisplaySelection(LPTSTR Path)
 	if (hFind != INVALID_HANDLE_VALUE){
 
 		do {
-
+			
 			if (FindFileData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
 			{
 				if( !(FindFileData.dwFileAttributes & FILE_ATTRIBUTE_HIDDEN) 
@@ -114,7 +115,7 @@ void CFileView::DisplaySelection(LPTSTR Path)
 					if( FindFileData.cFileName != CString (".")
 						&& FindFileData.cFileName != CString (".."))
 					{
-
+						
 						++n;
 						nItem = ctlFileView.InsertItem(n, _T("File"));  
 
@@ -125,7 +126,6 @@ void CFileView::DisplaySelection(LPTSTR Path)
 						/*CString fExt=GetExtension(fName);
 
 						ctlFileView.SetItemText(nItem, 2, fExt);*/
-
 
 
 					}

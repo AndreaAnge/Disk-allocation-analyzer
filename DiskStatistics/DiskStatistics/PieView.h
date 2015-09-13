@@ -1,5 +1,7 @@
 #pragma once
 
+#include "DiskStatisticsDoc.h"
+#include "foldersize.h"
 
 
 
@@ -41,16 +43,23 @@ public:
 	void GetDiskInfo(CString driveLetter,ULARGE_INTEGER &Capacity, ULARGE_INTEGER &Used, ULARGE_INTEGER &Free);
 
 private:
-	ULARGE_INTEGER pUsed;
-	ULARGE_INTEGER pCapacity;
-	ULARGE_INTEGER pFree;
+	
 public:
 	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnMouseHover(UINT nFlags, CPoint point);
 	void DrawText(CDC* pDc);
+private:
+	ULARGE_INTEGER pOther;
+	ULARGE_INTEGER pUsed;
+	ULARGE_INTEGER pCapacity;
+	ULARGE_INTEGER pFree;
+	FolderSize folderSize;
+public:
+	int folderCount;
+	int fileCount;
 };
 
 #ifndef _DEBUG  
-inline CDiscStatisticsDoc* GetDocument()
-{ return reinterpret_cast<CDiskStatisticsDoc*>(m_pDocument); }
+inline CDiscStatisticsDoc* CPieView::GetDocument()
+{ return (CDiskStatisticsDoc*)m_pDocument; }
 #endif

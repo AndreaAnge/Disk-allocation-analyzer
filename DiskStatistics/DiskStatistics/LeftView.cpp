@@ -3,11 +3,11 @@
 
 #include "stdafx.h"
 #include "DiskStatistics.h"
-#include "DiskStatisticsDoc.h"
+
 #include "LeftView.h"
 #include "FileView.h"
 #include "PieView.h"
-
+#include "DiskStatisticsDoc.h"
 
 // CLeftView
 
@@ -42,7 +42,6 @@ CDiskStatisticsDoc* CLeftView::GetDocument() // non-debug version is inline
 	ASSERT(m_pDocument->IsKindOf(RUNTIME_CLASS(CDiskStatisticsDoc)));
 	return (CDiskStatisticsDoc*)m_pDocument;
 }
-
 #ifndef _WIN32_WCE
 void CLeftView::Dump(CDumpContext& dc) const
 {

@@ -1,6 +1,6 @@
 #pragma once
 
-
+#include "DiskStatisticsDoc.h"
 
 
 
@@ -43,6 +43,6 @@ public:
 };
 
 #ifndef _DEBUG  
-inline CDiscStatisticsDoc* 	GetDocument() 
-{ return reinterpret_cast<CDiskStatisticsDoc*>(m_pDocument); }
+inline CDiscStatisticsDoc* 	CLeftView::GetDocument() 
+{ return (CDiskStatisticsDoc*)m_pDocument; }
 #endif

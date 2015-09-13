@@ -1,4 +1,5 @@
 #pragma once
+#include "DiskStatisticsDoc.h"
 #include "afxcmn.h"
 
 
@@ -45,6 +46,7 @@ public:
 
 	afx_msg void OnLvnColumnclick(NMHDR *pNMHDR, LRESULT *pResult);
 	CTabCtrl ctlTab;
+	int fileCount;
 };
 
 
