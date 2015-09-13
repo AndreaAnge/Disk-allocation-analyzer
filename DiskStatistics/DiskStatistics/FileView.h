@@ -1,5 +1,6 @@
 #pragma once
-#include "diskspaceinfo.h"
+#include "afxcmn.h"
+
 
 
 // CFileView view
@@ -43,6 +44,7 @@ public:
 
 
 	afx_msg void OnLvnColumnclick(NMHDR *pNMHDR, LRESULT *pResult);
+	CTabCtrl ctlTab;
 };
 
 

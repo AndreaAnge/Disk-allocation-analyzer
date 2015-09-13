@@ -50,6 +50,7 @@ protected:
 public:
 	CSplitterWnd m_wndSplitter2;
 	virtual BOOL OnCreateClient(LPCREATESTRUCT lpcs, CCreateContext* pContext);
+	CSplitterWnd m_wndSplitter3;
 };
 
 

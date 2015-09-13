@@ -76,6 +76,7 @@ void CFileView::OnInitialUpdate()
 	CListView::OnInitialUpdate();
 
 	CListCtrl &ctlFiles = this->GetListCtrl();
+	
     ctlFiles.ModifyStyle(NULL, LVS_REPORT);
 }
 
@@ -88,8 +89,8 @@ void CFileView::DisplaySelection(LPTSTR Path)
 
 	ctlFileView.DeleteAllItems();
 
-	ctlFileView.InsertColumn(0, _T("File Name"), LVCFMT_LEFT, 190);
-	ctlFileView.InsertColumn(1, _T("File Size"), LVCFMT_RIGHT, 80);
+	ctlFileView.InsertColumn(0, _T("File Name"), LVCFMT_LEFT, 200);
+	ctlFileView.InsertColumn(1, _T("File Size"), LVCFMT_RIGHT, 90);
 	ctlFileView.InsertColumn(2, _T("File Type"), LVCFMT_RIGHT, 80);
 
 
@@ -121,9 +122,9 @@ void CFileView::DisplaySelection(LPTSTR Path)
 
 						ctlFileView.SetItemText(nItem, 0, fName);
 
-						CString fExt=GetExtension(fName);
+						/*CString fExt=GetExtension(fName);
 
-						ctlFileView.SetItemText(nItem, 2, fExt);
+						ctlFileView.SetItemText(nItem, 2, fExt);*/
 
 
 
@@ -141,16 +142,30 @@ void CFileView::DisplaySelection(LPTSTR Path)
 
 				ctlFileView.SetItemText(nItem, 0, name);
 
-				LARGE_INTEGER lFSize;
+				ULARGE_INTEGER lFSize;
 
 				lFSize.LowPart= FindFileData.nFileSizeLow;
 				lFSize.HighPart=FindFileData.nFileSizeHigh;
 				CString strFSize=_T("");
-				strFSize.Format(_T("%d"),lFSize.QuadPart);
+
+
+				//strFSize.Format(_T("%.2f"),lFSize.QuadPart/1024.0);
+
+				if(lFSize.QuadPart>1024.0*1024.0*1024){
+					strFSize.Format(_T("%1.2f GB"),lFSize.QuadPart/1024.0/1024.0/1024.0);
+				}
+				else if(lFSize.QuadPart>1024.0*1024.0){
+					strFSize.Format(_T("%1.2f MB"),lFSize.QuadPart/1024.0/1024.0);
+				}
+				else if(lFSize.QuadPart>1024.0)
+					strFSize.Format(_T("%1.2f KB"),lFSize.QuadPart/1024.0);
+				else
+					strFSize.Format(_T("%d bytes"),lFSize.QuadPart);
+
 				ctlFileView.SetItemText(nItem, 1, strFSize); 
 
 				CString ext=GetExtension(name);
-
+				//sum['dir']['ext']=lfsize.quadpart
 				ctlFileView.SetItemText(nItem, 2, ext);
 
 			}

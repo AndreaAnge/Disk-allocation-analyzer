@@ -1,9 +1,11 @@
 #pragma once
-#include "pieview.h"
+
+
+
+
 
 
 class CDiskStatisticsDoc;
-// CLeftView view
 
 class CLeftView : public CTreeView
 {
@@ -13,7 +15,7 @@ protected:
 	CLeftView();           // protected constructor used by dynamic creation
 	virtual ~CLeftView();
 public:
-	CDiskStatisticsDoc* GetDocument();
+	CDiskStatisticsDoc*  GetDocument();
 
 #ifdef _DEBUG
 	virtual void AssertValid() const;
@@ -40,8 +42,7 @@ public:
 	
 };
 
-
 #ifndef _DEBUG  
-inline CDiscStatisticsDoc* CLeftView::GetDocument()
-{ return (CDiscStatisticsDoc*)m_pDocument; }
+inline CDiscStatisticsDoc* 	GetDocument() 
+{ return reinterpret_cast<CDiskStatisticsDoc*>(m_pDocument); }
 #endif

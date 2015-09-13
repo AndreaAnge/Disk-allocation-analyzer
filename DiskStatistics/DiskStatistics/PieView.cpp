@@ -10,8 +10,8 @@
 #include <GdiPlus.h>
 
 #define DEFAULT_MARGIN		5
-#define FREE_RGB			RGB(255, 20, 255)
-#define USED_RGB			RGB(66, 66, 255)
+#define FREE_RGB			RGB(219, 145, 121)
+#define USED_RGB			RGB(121, 195, 219)
 #define WHITE_RGB			RGB(255, 255, 255)
 
 // CPieView
@@ -32,6 +32,7 @@ CPieView::~CPieView()
 
 BEGIN_MESSAGE_MAP(CPieView, CView)
 	ON_WM_CREATE()
+	ON_WM_MOUSEHOVER()
 END_MESSAGE_MAP()
 
 
@@ -44,6 +45,7 @@ void CPieView::OnDraw(CDC* pDC)
 	// TODO: add draw code here
 
 	Draw2DPie(pDC);
+	DrawText(pDC);
 }
 
 
@@ -83,7 +85,7 @@ void CPieView::Draw2DPie(CDC* pDc)
 
 	GetClientRect(&rectArea);
 	rectArea.DeflateRect(2, 2);
-	pDc->FillSolidRect(&rectArea, RGB(240,248,255));
+	pDc->FillSolidRect(&rectArea, WHITE_RGB);
 
 	ULARGE_INTEGER Zero={0};
 
@@ -204,3 +206,95 @@ int CPieView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	return 0;
 }
 
+
+
+void CPieView::OnMouseHover(UINT nFlags, CPoint point)
+{
+	// TODO: Add your message handler code here and/or call default
+	
+	CView::OnMouseHover(nFlags, point);
+}
+
+
+void CPieView::DrawText(CDC* pDc)
+{
+	
+	CRect rectArea;
+
+	GetClientRect(&rectArea);
+
+	rectArea.top = rectArea.top + DEFAULT_MARGIN;
+	rectArea.right = rectArea.right - DEFAULT_MARGIN;
+	rectArea.left = rectArea.left + DEFAULT_MARGIN;
+	rectArea.bottom = rectArea.bottom - rectArea.Height()*3/5 - DEFAULT_MARGIN;
+
+	CRect Line1, Line2, Line3;
+	Line1 = Line2 = Line3 = rectArea;
+	Line1.bottom = rectArea.top + rectArea.Height()/3;
+	Line2.top = Line1.bottom;
+	Line2.bottom = rectArea.bottom - rectArea.Height()/3;
+	Line3.top = Line2.bottom;
+
+	CFont FontTitle;
+	FontTitle.CreateFont(15, 0, 0, 0, 0, FALSE,FALSE, 0, 
+		ANSI_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, 
+		DEFAULT_QUALITY, DEFAULT_PITCH | FF_ROMAN, _T("Arial"));
+	
+	CFont* pOldFont=(CFont*) pDc->SelectObject(&FontTitle);
+
+	CString Title;
+	ULARGE_INTEGER temp={0};
+
+	if (pCapacity.QuadPart > 1024.0*1024.0*1024)
+		Title.Format(_T("Capacity: %2.2f GB"), pCapacity.QuadPart/1024.0/1024.0/1024.0);
+	else if (pCapacity.QuadPart > 1024.0*1024.0)
+		Title.Format(_T("Capacity: %2.2f MB"), pCapacity.QuadPart/1024.0/1024.0);
+	else
+		Title.Format(_T("Capacity: %2.2f KB"), pCapacity.QuadPart/1024.0);
+	
+	pDc->TextOut(Line1.left + DEFAULT_MARGIN + 4.5,
+				Line1.top + DEFAULT_MARGIN,
+				Title);
+
+	if (pUsed.QuadPart > 1024.0*1024.0*1024)
+		Title.Format(_T("Used: %2.2f GB"), pUsed.QuadPart/1024.0/1024.0/1024.0);
+	else if (pUsed.QuadPart > 1024.0*1024.0)
+		Title.Format(_T("Used: %2.2f MB"), pUsed.QuadPart/1024.0/1024.0);
+	else
+		Title.Format(_T("Used: %2.2f KB"), pUsed.QuadPart/1024.0);
+	
+	pDc->TextOut(Line2.left + Line2.Width()/20,
+				Line2.top,
+				Title);
+
+	if (pFree.QuadPart > 1024.0*1024.0*1024)
+		Title.Format(_T("Free: %2.2f GB"), pFree.QuadPart/1024.0/1024.0/1024.0);
+	else if (pFree.QuadPart > 1024.0*1024.0)
+		Title.Format(_T("Free: %2.2f MB"), pFree.QuadPart/1024.0/1024.0);
+	else
+		Title.Format(_T("Free: %2.2f KB"), pFree.QuadPart/1024.0);
+	
+	pDc->TextOut(Line3.left + Line3.Width()/20,
+				Line3.top - DEFAULT_MARGIN,
+				Title);
+	
+	pDc->SelectObject(pOldFont);
+
+	CBrush UsedBrush, FreeBrush;
+	CRect FreeRect, UsedRect;
+
+	//kockice 
+	UsedRect.top=Line2.top;
+	UsedRect.left=Line2.left + DEFAULT_MARGIN * 2;
+	UsedRect.right=UsedRect.left + DEFAULT_MARGIN * 3 - 2;
+	UsedRect.bottom=UsedRect.top + DEFAULT_MARGIN * 3 - 2;
+	UsedBrush.CreateSolidBrush(USED_RGB);
+	pDc->FillRect(&UsedRect,&UsedBrush);
+
+	FreeRect.top=Line3.top - DEFAULT_MARGIN;
+	FreeRect.left=Line3.left + DEFAULT_MARGIN * 2;
+	FreeRect.right=FreeRect.left + DEFAULT_MARGIN * 3 - 2;
+	FreeRect.bottom=FreeRect.top + DEFAULT_MARGIN * 3 - 2;
+	FreeBrush.CreateSolidBrush(FREE_RGB);
+	pDc->FillRect(&FreeRect,&FreeBrush);
+}

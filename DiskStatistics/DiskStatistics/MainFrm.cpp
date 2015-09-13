@@ -325,6 +325,8 @@ BOOL CMainFrame::OnCreateClient(LPCREATESTRUCT lpcs, CCreateContext* pContext)
             CSize (0, 380), pContext) ||
         !m_wndSplitter2.CreateView (1, 0, RUNTIME_CLASS (CFileView),
             CSize (0, 0), pContext))
+
+
         return FALSE;
     return TRUE;
 }

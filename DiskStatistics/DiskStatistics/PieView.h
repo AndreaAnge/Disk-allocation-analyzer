@@ -1,5 +1,6 @@
 #pragma once
-#include "diskspaceinfo.h"
+
+
 
 
 // CPieView view
@@ -45,10 +46,11 @@ private:
 	ULARGE_INTEGER pFree;
 public:
 	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
+	afx_msg void OnMouseHover(UINT nFlags, CPoint point);
+	void DrawText(CDC* pDc);
 };
 
-
 #ifndef _DEBUG  
-inline CDiscStatisticsDoc* CPieView::GetDocument()
-{ return (CDiscStatisticsDoc*)m_pDocument; }
+inline CDiscStatisticsDoc* GetDocument()
+{ return reinterpret_cast<CDiskStatisticsDoc*>(m_pDocument); }
 #endif

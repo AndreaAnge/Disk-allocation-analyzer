@@ -47,6 +47,6 @@ protected:
 
 #ifndef _DEBUG  // debug version in DiskStatisticsView.cpp
 inline CDiskStatisticsDoc* CDiskStatisticsView::GetDocument() const
-   { return reinterpret_cast<CDiskStatisticsDoc*>(m_pDocument); }
+   { return static_cast<CDiskStatisticsDoc*>(m_pDocument); }
 #endif
 

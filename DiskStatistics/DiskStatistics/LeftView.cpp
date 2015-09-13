@@ -193,13 +193,13 @@ void CLeftView::OnTvnSelchanged(NMHDR *pNMHDR, LRESULT *pResult)
     } while (nodParent != NULL);
 
     CString strSearchPath = strSelected + ("\\*.*"); //c:\*.*
-	CString strDrive = strSelected + ("\\");
+	//CString strDrive = strSelected + ("\\");
 
     pDoc->pFileView->DisplaySelection(strSearchPath.GetBuffer(1));
-	pDoc->pPieView->DisplayDrive(strSelected.Left(3));
+
     GetPath(strSelected); // expands the selected drive
 
-	
+	pDoc->pPieView->DisplayDrive(strSelected);
 	
 }
 
@@ -241,6 +241,7 @@ void CLeftView::GetPath(CString CStrPath)
 
 		}while((::WaitForSingleObject(m_hStopEvent, 0) != WAIT_OBJECT_0) 
 		&& (::FindNextFile(hFind, &FindFileData)));
-				::FindClose(hFind);;
+				
+		::FindClose(hFind);;
 	}
 }
