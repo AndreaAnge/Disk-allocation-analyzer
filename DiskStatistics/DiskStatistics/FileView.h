@@ -34,8 +34,6 @@ public:
 	//virtual void OnUpdate(CView* /*pSender*/, LPARAM /*lHint*/, CObject* /*pHint*/);
 	void DisplaySelection(LPTSTR Path);
 
-private:
-	HANDLE m_hStopEvent;
 
 
 public:

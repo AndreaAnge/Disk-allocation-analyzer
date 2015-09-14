@@ -170,8 +170,7 @@ void CFileView::DisplaySelection(LPTSTR Path)
 
 			}
 
-		}while((::WaitForSingleObject(m_hStopEvent, 0) !=
-			WAIT_OBJECT_0) && (::FindNextFile(hFind, &FindFileData)));
+		}while((::FindNextFile(hFind, &FindFileData)));
 		::FindClose(hFind);
 
 		

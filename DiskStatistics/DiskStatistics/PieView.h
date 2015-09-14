@@ -40,7 +40,7 @@ public:
 protected:
 	CString pDiskLetter;
 public:
-	void GetDiskInfo(CString driveLetter,ULARGE_INTEGER &Capacity, ULARGE_INTEGER &Used, ULARGE_INTEGER &Free);
+	void GetDiskInfo(CString driveLetter);
 
 private:
 	

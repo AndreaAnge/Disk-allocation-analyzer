@@ -34,8 +34,7 @@ public:
 	void CreateRoots(void);
 	CString GetPathFromItem(HTREEITEM hItem);
 	afx_msg void OnTvnSelchanged(NMHDR *pNMHDR, LRESULT *pResult);
-private:
-	HANDLE m_hStopEvent;
+
 public:
 	void GetPath(CString CStrPath);
 	

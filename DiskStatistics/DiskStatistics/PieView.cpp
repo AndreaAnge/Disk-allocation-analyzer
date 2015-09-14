@@ -101,8 +101,8 @@ void CPieView::Draw2DPie(CDC* pDc)
 	rectArea.bottom = rectArea.bottom - DEFAULT_MARGIN;
 
 	COLORREF clr[2];
-	clr[0]=FREE_RGB;
-	clr[1]=USED_RGB;
+	clr[0]=USED_RGB;
+	clr[1]=FREE_RGB;
 	
 	
 
@@ -130,8 +130,8 @@ void CPieView::Draw2DPie(CDC* pDc)
 
 	
 	double Slice[2]={0};
-	Slice[0] = (double) (pFree.QuadPart * 1.0 / pCapacity.QuadPart);
-	Slice[1] = (double) (pUsed.QuadPart * 1.0 / pCapacity.QuadPart);
+	Slice[0] = (double) (pUsed.QuadPart * 1.0 / pCapacity.QuadPart);
+	Slice[1] = (double) (pFree.QuadPart * 1.0 / pCapacity.QuadPart);
 	
 
 	
@@ -179,7 +179,7 @@ void CPieView::DisplayDrive(CString driveLetter)
 {
 	
 	pDiskLetter=driveLetter;
-	GetDiskInfo(driveLetter,pCapacity,pFree,pUsed);
+	GetDiskInfo(driveLetter);
 
 		
 	folderSize.GetFolderSize(driveLetter,&folderCount,&fileCount,pOther);
@@ -189,7 +189,7 @@ void CPieView::DisplayDrive(CString driveLetter)
 }
 
 
-void CPieView::GetDiskInfo(CString driveLetter,ULARGE_INTEGER &Capacity,ULARGE_INTEGER &Free,ULARGE_INTEGER &Used)
+void CPieView::GetDiskInfo(CString driveLetter)
 {
 	ULARGE_INTEGER AvailableToCaller;
 	
@@ -198,8 +198,8 @@ void CPieView::GetDiskInfo(CString driveLetter,ULARGE_INTEGER &Capacity,ULARGE_I
 	InitMembers();
 
 		GetDiskFreeSpaceExW((driveLetter).Left(3), &AvailableToCaller,
-									&Capacity, &Free);
-		Used.QuadPart = Capacity.QuadPart - Free.QuadPart;
+									&pCapacity, &pFree);
+		pUsed.QuadPart = pCapacity.QuadPart - pFree.QuadPart;
 
 }
 

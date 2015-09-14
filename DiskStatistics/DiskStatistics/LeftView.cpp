@@ -238,8 +238,7 @@ void CLeftView::GetPath(CString CStrPath)
 				hFolder = ctlFolders.InsertItem
 					(FindFileData.cFileName,2,3,hRoot);
 
-		}while((::WaitForSingleObject(m_hStopEvent, 0) != WAIT_OBJECT_0) 
-		&& (::FindNextFile(hFind, &FindFileData)));
+		}while((::FindNextFile(hFind, &FindFileData)));
 				
 		::FindClose(hFind);;
 	}
